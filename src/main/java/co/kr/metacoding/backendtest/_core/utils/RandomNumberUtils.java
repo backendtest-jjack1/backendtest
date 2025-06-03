@@ -17,7 +17,7 @@ public class RandomNumberUtils {
         Set<Integer> numbers = new HashSet<>();
         while (true) {
             numbers.add(random.nextInt(max - min + 1) + min);
-            if (numbers.size() == 6) break;
+            if (numbers.size() == count) break;
         }
         return new ArrayList<>(numbers);
     }
