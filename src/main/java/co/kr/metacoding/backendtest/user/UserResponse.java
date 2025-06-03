@@ -6,7 +6,7 @@ public class UserResponse {
 
     @Data
     public static class SaveDTO {
-        private Integer id;
+        private Long id;
 
         public SaveDTO(User user) {
             this.id = user.getId();
@@ -15,7 +15,7 @@ public class UserResponse {
 
     @Data
     public static class DTO {
-        private Integer id;
+        private Long id;
         private String name;
 
         public DTO(User user) {
@@ -26,7 +26,7 @@ public class UserResponse {
 
     @Data
     public static class UpdateDTO {
-        private Integer id;
+        private Long id;
         private String name;
 
         public UpdateDTO(User user) {

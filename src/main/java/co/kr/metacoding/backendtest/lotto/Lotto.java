@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Lotto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "number_1")
     private Integer number1;
@@ -33,7 +33,7 @@ public class Lotto {
     private Integer number6;
 
     @Builder
-    public Lotto(Integer id, Integer number1, Integer number2, Integer number3, Integer number4, Integer number5, Integer number6) {
+    public Lotto(Long id, Integer number1, Integer number2, Integer number3, Integer number4, Integer number5, Integer number6) {
         this.id = id;
         this.number1 = number1;
         this.number2 = number2;

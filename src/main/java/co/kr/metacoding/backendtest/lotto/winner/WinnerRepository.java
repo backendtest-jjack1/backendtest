@@ -37,7 +37,7 @@ public class WinnerRepository {
                 winners,
                 winners.size(),
                 (ps, winner) -> {
-                    ps.setInt(1, winner.getLotto().getId());
+                    ps.setLong(1, winner.getLotto().getId());
                     ps.setInt(2, winner.getRank());
                 }
         );

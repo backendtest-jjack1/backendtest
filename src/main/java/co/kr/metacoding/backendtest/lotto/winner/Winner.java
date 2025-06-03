@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 public class Winner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     private Lotto lotto;
     private Integer rank; // 1등, 2등, 3등, 4등, 5등
 
     @Builder
-    public Winner(Integer id, Lotto lotto, Integer rank) {
+    public Winner(Long id, Lotto lotto, Integer rank) {
         this.id = id;
         this.lotto = lotto;
         this.rank = rank;
