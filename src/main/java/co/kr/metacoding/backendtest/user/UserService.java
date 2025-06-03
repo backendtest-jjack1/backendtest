@@ -37,6 +37,9 @@ public class UserService {
             throw new ExceptionApi400("이미 존재하는 name 입니다");
         }
         User userPS = userRepository.findById(id);
+        if (userPS == null) {
+            throw new ExceptionApi404("존재하지 않는 user 입니다");
+        }
         userPS.updateName(reqDTO.getName());
         return new UserResponse.UpdateDTO(userPS);
     }
