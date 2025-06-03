@@ -1,5 +1,6 @@
 package co.kr.metacoding.backendtest.lotto;
 
+import co.kr.metacoding.backendtest._core.utils.Resp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,6 @@ public class LottoController {
     @PostMapping("/lottos")
     public ResponseEntity<?> generateLottoNumbers() {
         LottoResponse.DTO respDTO = lottoService.generateLottoNumbers();
-        return ResponseEntity.ok(respDTO);
+        return Resp.ok(respDTO);
     }
 }

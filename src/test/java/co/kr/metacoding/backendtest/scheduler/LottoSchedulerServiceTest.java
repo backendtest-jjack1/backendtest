@@ -11,8 +11,18 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+/**
+ * LottoSchedulerService의 스케줄러 동작 관련 통합 테스트 클래스입니다.
+ * <p>
+ *
+ * @Transactional: 을 통해 각 테스트 실행 후 롤백됩니다.
+ */
 @Transactional
+/**
+ * @SpringBootTest: 실제 스프링 컨텍스트를 로딩하여 통합 테스트를 수행할 수 있게 함.
+ * (내부적으로 @SpringBootConfiguration, @EnableAutoConfiguration 등을 포함)
+ */
+@SpringBootTest
 public class LottoSchedulerServiceTest {
 
     @Autowired
@@ -20,7 +30,10 @@ public class LottoSchedulerServiceTest {
     @Autowired
     private WinnerRepository winnerRepository;
 
-    // 스케줄러가 호출할 대상 메서드만 테스트하는 것이 일반적
+    /**
+     * [통합 테스트] 스케줄러에서 호출하는 당첨자 체크 기능이 정상 동작하는지 검증한다.
+     * - 당첨자 데이터가 저장되어 있는 경우, 첫번째 당첨자의 순위와 로또 번호가 정상인지 확인한다.
+     */
     @Test
     public void check_winners_test() {
         // when
