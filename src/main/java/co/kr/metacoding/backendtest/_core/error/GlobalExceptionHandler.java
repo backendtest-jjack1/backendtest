@@ -39,8 +39,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public ResponseEntity<?> exUnknown(ExceptionApi400 e) {
-        return ExceptionResp.fail(HttpStatus.BAD_REQUEST, e.getMessage());
+    public ResponseEntity<?> exUnknown(Exception e) {
+        return ExceptionResp.fail(HttpStatus.NOT_FOUND, e.getMessage());
     }
 
 }
