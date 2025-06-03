@@ -26,6 +26,12 @@ public class SpecialCharacterFilter implements Filter {
         // 검사할 대상 문자열 생성 (URI + ? + query)
         String fullUrl = uri + (query == null ? "" : "?" + query);
 
+        // h2-console 경로는 필터 통과
+        if (uri.startsWith("/h2-console")) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
         // 허용 문자 제외한 특수문자 있는지 검사
         // 허용 문자(영숫자 + ALLOWED_SPECIALS) 이외의 문자가 있으면 차단
         if (containsForbiddenCharacters(fullUrl)) {
