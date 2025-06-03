@@ -2,9 +2,7 @@ package co.kr.metacoding.backendtest.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -14,6 +12,12 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<?> save(@RequestBody UserRequest.SaveDTO reqDTO) {
         UserResponse.SaveDTO respDTO = userService.save(reqDTO);
+        return ResponseEntity.ok(respDTO);
+    }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<?> getUser(@PathVariable("id") Integer id) {
+        UserResponse.DTO respDTO = userService.getUser(id);
         return ResponseEntity.ok(respDTO);
     }
 }
