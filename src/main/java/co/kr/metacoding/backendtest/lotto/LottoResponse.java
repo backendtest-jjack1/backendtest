@@ -2,16 +2,24 @@ package co.kr.metacoding.backendtest.lotto;
 
 import lombok.Data;
 
-import java.util.Set;
+import java.util.Arrays;
+import java.util.List;
 
 public class LottoResponse {
 
     @Data
     public static class DTO {
-        private Set<Integer> numbers;
+        private List<Integer> numbers;
 
-        public DTO(Set<Integer> numbers) {
-            this.numbers = numbers;
+        public DTO(Lotto lotto) {
+            this.numbers = Arrays.asList(
+                    lotto.getNumber1(),
+                    lotto.getNumber2(),
+                    lotto.getNumber3(),
+                    lotto.getNumber4(),
+                    lotto.getNumber5(),
+                    lotto.getNumber6()
+            );
         }
     }
 }

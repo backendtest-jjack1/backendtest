@@ -8,4 +8,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class LottoRepository {
     private final EntityManager em;
+
+    public Lotto save(Lotto lotto) {
+        em.persist(lotto);
+        return lotto;
+    }
 }
