@@ -2,7 +2,6 @@ package co.kr.metacoding.backendtest.lotto;
 
 import lombok.Data;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class LottoResponse {
@@ -12,7 +11,7 @@ public class LottoResponse {
         private List<Integer> numbers;
 
         public DTO(Lotto lotto) {
-            this.numbers = Arrays.asList(
+            this.numbers = List.of(
                     lotto.getNumber1(),
                     lotto.getNumber2(),
                     lotto.getNumber3(),
