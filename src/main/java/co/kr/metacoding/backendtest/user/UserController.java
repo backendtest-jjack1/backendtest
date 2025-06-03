@@ -20,4 +20,10 @@ public class UserController {
         UserResponse.DTO respDTO = userService.getUser(id);
         return ResponseEntity.ok(respDTO);
     }
+
+    @PutMapping("/users/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody UserRequest.UpdateDTO reqDTO) {
+        UserResponse.UpdateDTO respDTO = userService.update(id, reqDTO);
+        return ResponseEntity.ok(respDTO);
+    }
 }

@@ -13,4 +13,9 @@ public class UserRequest {
         }
     }
 
+    @Data
+    public static class UpdateDTO {
+        private String name;
+    }
+
 }
