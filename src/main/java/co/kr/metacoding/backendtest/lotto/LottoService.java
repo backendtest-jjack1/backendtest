@@ -1,24 +1,29 @@
 package co.kr.metacoding.backendtest.lotto;
 
+import co.kr.metacoding.backendtest._core.utils.RandomNumberUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class LottoService {
     private final LottoRepository lottoRepository;
 
+    @Transactional
     public LottoResponse.DTO generateLottoNumbers() {
-        Set<Integer> lottoSet = new HashSet<>();
-        Random random = new Random();
-        while (true) {
-            lottoSet.add(random.nextInt(45) + 1);
-            if (lottoSet.size() == 6) break;
-        }
-        return new LottoResponse.DTO(lottoSet);
+        List<Integer> lottoNumbers = RandomNumberUtils.generateUniqueRandomNumbers(6, 1, 45);
+        Lotto lotto = Lotto.builder()
+                .number1(lottoNumbers.get(0))
+                .number2(lottoNumbers.get(1))
+                .number3(lottoNumbers.get(2))
+                .number4(lottoNumbers.get(3))
+                .number5(lottoNumbers.get(4))
+                .number6(lottoNumbers.get(5))
+                .build();
+        Lotto savedLotto = lottoRepository.save(lotto);
+        return new LottoResponse.DTO(savedLotto);
     }
 }
