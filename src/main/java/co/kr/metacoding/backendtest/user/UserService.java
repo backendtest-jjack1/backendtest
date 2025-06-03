@@ -16,4 +16,8 @@ public class UserService {
         return new UserResponse.SaveDTO(userPS);
     }
 
+    public UserResponse.DTO getUser(Integer id) {
+        User userPS = userRepository.findById(id);
+        return new UserResponse.DTO(userPS);
+    }
 }
