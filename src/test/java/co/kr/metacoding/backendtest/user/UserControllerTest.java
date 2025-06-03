@@ -117,7 +117,7 @@ public class UserControllerTest {
         // given
         Integer id = 1;
         UserRequest.UpdateDTO reqDTO = new UserRequest.UpdateDTO();
-        reqDTO.setName("test");
+        reqDTO.setName("ssar");
 
         String requestBody = om.writeValueAsString(reqDTO);
         System.out.println(requestBody);
@@ -135,8 +135,7 @@ public class UserControllerTest {
         System.out.println(responseBody);
 
         // then
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.name").value("test"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.reason").value("이미 존재하는 name 입니다"));
     }
 
     @Test
