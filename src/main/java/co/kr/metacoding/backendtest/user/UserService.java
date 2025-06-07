@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -14,8 +16,8 @@ public class UserService {
     @Transactional
     public UserResponse.SaveDTO saveUser(UserRequest.SaveDTO reqDTO) {
         // 1. name 체크
-        User checkUser = userRepository.findByName(reqDTO.getName());
-        if (checkUser != null) {
+        Optional<User> checkUser = userRepository.findByName(reqDTO.getName());
+        if (checkUser.isPresent()) {
             throw new ExceptionApi400("이미 존재하는 name 입니다");
         }
 
@@ -31,10 +33,7 @@ public class UserService {
 
     public UserResponse.DTO getUser(Integer id) {
         // 1. 유저 조회
-        User userPS = userRepository.findById(id);
-        if (userPS == null) {
-            throw new ExceptionApi404("존재하지 않는 user 입니다");
-        }
+        User userPS = userRepository.findById(id).orElseThrow(() -> new ExceptionApi404("존재하지 않는 user 입니다"));
 
         // 2. 유저 응답
         return new UserResponse.DTO(userPS);
@@ -43,16 +42,13 @@ public class UserService {
     @Transactional
     public UserResponse.UpdateDTO updateUser(Integer id, UserRequest.UpdateDTO reqDTO) {
         // 1. name 체크
-        User checkUser = userRepository.findByName(reqDTO.getName());
-        if (checkUser != null && checkUser.getName().equals(reqDTO.getName())) {
+        Optional<User> checkUser = userRepository.findByName(reqDTO.getName());
+        if (checkUser.isPresent() && checkUser.get().getName().equals(reqDTO.getName())) {
             throw new ExceptionApi400("이미 존재하는 name 입니다");
         }
 
         // 2. 유저 조회
-        User userPS = userRepository.findById(id);
-        if (userPS == null) {
-            throw new ExceptionApi404("존재하지 않는 user 입니다");
-        }
+        User userPS = userRepository.findById(id).orElseThrow(() -> new ExceptionApi404("존재하지 않는 user 입니다"));
 
         // 3. 이름 수정
         userPS.updateName(reqDTO.getName());
