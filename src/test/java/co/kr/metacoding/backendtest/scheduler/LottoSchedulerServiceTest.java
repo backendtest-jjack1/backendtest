@@ -6,7 +6,6 @@ import co.kr.metacoding.backendtest.lotto.LottoRepository;
 import co.kr.metacoding.backendtest.lotto.winner.Winner;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -22,9 +21,6 @@ public class LottoSchedulerServiceTest {
     @Mock
     private LottoRepository lottoRepository;
 
-    @InjectMocks
-    private LottoSchedulerService lottoSchedulerService;
-
     /**
      * [단위 테스트] checkWinners 내부 로직을 직접 수행하여,
      * 특정 로또 번호에 대해 당첨 등수가 정확히 계산되는지 검증한다.
@@ -34,7 +30,7 @@ public class LottoSchedulerServiceTest {
      * - 3등에 해당하는 당첨 번호를 만들어서 검증한다.
      */
     @Test
-    public void check_winners_logic_test() {
+    public void check_winners_test() {
         // given
         // DB에 저장된 번호 (3등 당첨 가능하게)
         Lotto lottoPS = Lotto.builder()
