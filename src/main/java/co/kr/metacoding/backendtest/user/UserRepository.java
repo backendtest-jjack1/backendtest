@@ -5,6 +5,8 @@ import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Repository
 public class UserRepository {
@@ -15,17 +17,17 @@ public class UserRepository {
         return user;
     }
 
-    public User findById(Integer id) {
-        return em.find(User.class, id);
+    public Optional<User> findById(Integer id) {
+        return Optional.ofNullable(em.find(User.class, id));
     }
 
-    public User findByName(String name) {
+    public Optional<User> findByName(String name) {
         Query query = em.createQuery("select u from User u where u.name = :name", User.class);
         query.setParameter("name", name);
         try {
-            return (User) query.getSingleResult();
+            return Optional.of((User) query.getSingleResult());
         } catch (Exception e) {
-            return null;
+            return Optional.ofNullable(null);
         }
     }
 }
