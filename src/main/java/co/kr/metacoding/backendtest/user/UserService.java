@@ -40,7 +40,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponse.UpdateDTO updateUser(Integer id, UserRequest.UpdateDTO reqDTO) {
+    public UserResponse.DTO updateUser(Integer id, UserRequest.UpdateDTO reqDTO) {
         // 1. name 체크
         Optional<User> checkUser = userRepository.findByName(reqDTO.getName());
         if (checkUser.isPresent() && checkUser.get().getName().equals(reqDTO.getName())) {
@@ -54,6 +54,6 @@ public class UserService {
         userPS.updateName(reqDTO.getName());
 
         // 4. 유저 응답
-        return new UserResponse.UpdateDTO(userPS);
+        return new UserResponse.DTO(userPS);
     }
 }
