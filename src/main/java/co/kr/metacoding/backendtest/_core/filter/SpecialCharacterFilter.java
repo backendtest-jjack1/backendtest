@@ -3,8 +3,11 @@ package co.kr.metacoding.backendtest._core.filter;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.MediaType;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 
 public class SpecialCharacterFilter implements Filter {
@@ -32,16 +35,30 @@ public class SpecialCharacterFilter implements Filter {
 
         // 정규식으로 허용되지 않은 문자 검사
         if (!ALLOWED_PATTERN.matcher(fullUrl).matches()) {
-            // 응답 상태코드 403
-            res.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            // json 응답
-            res.setContentType("application/json;charset=UTF-8");
-
-            // json 응답 모양으로 return
-            res.getWriter().write("{\"reason\": \"URL에 허용되지 않는 특수문자가 포함되어 있습니다.\"}");
+            sendForbiddenResponse(res);
             return;
         }
 
         filterChain.doFilter(servletRequest, servletResponse);
+    }
+
+    /**
+     * 상태코드 403 및 url 허용금지 메시지 응답
+     *
+     * @param res
+     * @throws IOException
+     */
+    void sendForbiddenResponse(HttpServletResponse res) throws IOException {
+        // 응답 상태코드 403
+        res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        // utf-8 설정
+        res.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        // json 응답
+        res.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
+        // 응답 본문 출력 및 flush
+        PrintWriter writer = res.getWriter();
+        writer.println("{\"reason\": \"URL에 허용되지 않는 특수문자가 포함되어 있습니다.\"}"); // \n 이 명확하게 포함되야함
+        writer.flush(); // 명확하게 버퍼 응답
     }
 }
