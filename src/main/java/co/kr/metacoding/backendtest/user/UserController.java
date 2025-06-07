@@ -28,7 +28,7 @@ public class UserController {
     @LogUserAgent
     @PutMapping("/users/{id}")
     public ResponseEntity<?> updateUser(@PathVariable("id") Integer id, @RequestBody UserRequest.UpdateDTO reqDTO) {
-        UserResponse.UpdateDTO respDTO = userService.updateUser(id, reqDTO);
+        UserResponse.DTO respDTO = userService.updateUser(id, reqDTO);
         return Resp.ok(respDTO);
     }
 }
